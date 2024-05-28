@@ -12,5 +12,17 @@ const getData = async () => {
     };
 };
 
+const addSong = async(cancion) => {
+    try {
+        const consulta = {
+            text: 'INSERT INTO canciones (titulo, artista, tono) VALUES ($1,$2,$3) RETURNING *',
+            values: cancion,
+        }
+    const response = await pool.query(consulta);
+    return response.rows;
+    } catch (error) {
+        console.log(error.message);
+    };
+}
 
-export { getData }
+export { getData, addSong }
